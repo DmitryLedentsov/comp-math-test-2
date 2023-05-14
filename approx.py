@@ -7,7 +7,7 @@ data = \
 2.73 5.12 7.74 8.91 10.59 12.75 13.43
 '''
 #выбрать нужный после lambda
-get_method = lambda: lna
+get_method = lambda: expa
 #x = "1.1 2.3 3.7 4.5 5.4 6.8 7.5"
 #y = "2.73 5.12 7.74 8.91 10.59 12.75 13.43"
 data = data.splitlines()
