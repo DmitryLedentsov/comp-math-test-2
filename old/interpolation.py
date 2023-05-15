@@ -3,10 +3,10 @@ from math import *
 #менять тута
 data = \
 '''
-1 3 5 7 9
-5.4 10.3 17.2 20.8 25.1
+0,1 0,2 0,3 0,4 0,5
+1,25 2,38 3,79 5,44 7,14
 '''
-x0 = 2.5#7.93
+x0 = 0.28
 #выбрать нужный после lambda
 get_method = lambda: gau
 #x = "1.1 2.3 3.7 4.5 5.4 6.8 7.5"
@@ -61,15 +61,10 @@ def t_calc_gau(t, n, forward=True):
 
     for i in range(1, n):
         if forward:
-            if(i % 2 == 0):
-              result *= (t - int((i+1)/2))
-            else:
-              result *= (t + int((i+1)/2))
+            result *= t + (-1)*i*int((i+1)/2)
         else:
-            if(i % 2 == 1):
-              result *= (t - int((i+1)/2))
-            else:
-              result *= (t + int((i+1)/2))
+            result *= t + (-1)*i*int((i+1)/2)
+
     return result
 
 
@@ -115,14 +110,14 @@ def nwt(dots, x):
         if x0 < 0:
             x0 = 0
         t = (x - dots[x0][0]) / h
-        print("t = ", t)
+
         result = a[x0][0]
         for i in range(1, n):
             result += (t_calc_nwt(t, i) * a[x0][i]) / factorial(i)
     else:
         # Вторая интерполяционная формула Ньютона
         t = (x - dots[n - 1][0]) / h
-        print("t = ", t)
+
         result = a[n - 1][0]
         for i in range(1, n):
             result += (t_calc_nwt(t, i, False) * a[n - i - 1][i]) / factorial(i)
@@ -151,7 +146,7 @@ def gau(dots, x):
     fmt_table(table)
     #####################
     if x <= dots[n // 2][0]:
-        # вторая интерполяционная формула Гаусса
+        # Первая интерполяционная формула Гаусса
         x0 = n - 1
         for i in range(n):
             if x <= dots[i][0]:
@@ -159,24 +154,22 @@ def gau(dots, x):
                 break
         if x0 < 0:
             x0 = 0
-        
+     
         t = (x - dots[int(n / 2)][0]) / h
         print("t = ", t)
         result = dots[n//2][1]
         for i in range(1, n):
-            print("cur delta: ",a[int((n - i) / 2) + (i % 2 == 0)-1][i])
             
-            result += (t_calc_gau(t, i) * a[int((n - i) / 2) + (i % 2 == 0)-1][i]) / factorial(i)
-            print("cur res: ", result)
+            result += (t_calc_gau(t, i) * a[int((n - i) / 2) - (n % 2 == 0)][i]) / factorial(i)
     else:
-        # первая интерполяционная формула Гаусса
+        # Вторая интерполяционная формула Гаусса
         t = (x - dots[int(n / 2)][0]) / h
         print("t= ",t)
         result = dots[n//2][1]
         for i in range(1, n):
-            print("cur delta: ", a[int((n - i) / 2)][i])
+            
             result += (t_calc_gau(t, i, False) * a[int((n - i) / 2)][i]) / factorial(i)
-            print("cur res: ", result)
+
     return result
 
-print("РЕЗУЛЬТАТ:", get_method()(dots, x0))
+print(get_method()(dots, x0))

@@ -14,14 +14,12 @@ def euler(f, a, b, y0, h):
     dots = [(a, y0)]
     n = int((b - a) / h)
     print(f'| i | x_i   |    y_i |   f_i |')
-    f_i = f(a,y0)
-    print(f'| 0 | {a:^.3f} | {y0:>.3f} | {f_i:<.3f} |')
+    print(f'| 0 | {a:^.3f} | {y0:>.3f} | {f(a,y0):<.3f} |')
     for i in range(1, n + 1):
 
-       
+        f_i = f(dots[i - 1][0], dots[i - 1][1])
         x_i = dots[i - 1][0] + h
         y_i = dots[i - 1][1] + h * f_i
-        f_i = f(x_i,y_i)
         print(f'| {i:1} | {x_i:^.3f} | {y_i:>.3f} | {f_i:<.3f} |')
         dots.append((dots[i - 1][0] + h,
                      dots[i - 1][1] + h * f(dots[i - 1][0], dots[i - 1][1])))
