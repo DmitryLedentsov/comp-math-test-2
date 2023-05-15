@@ -11,7 +11,7 @@ def dir(function, h = 0.000000001):
 f = lambda x,y:  y+(1+x)*(y*y)
 
 def euler(f, a, b, y0, h):
-    """ Метод Эйлера """
+    print("ЭЙЛЕР")
     dots = [(a, y0)]
     n = int((b - a) / h)
     print(f'| i | x_i   |    y_i |   f_i |')
@@ -43,21 +43,23 @@ def runge_next(func, x, y, h):
     k2 = h * func(x + h / 2, y + k1 / 2)
     k3 = h * func(x + h / 2, y + k2 / 2)
     k4 = h * func(x + h, y + k3)
+    #print(f"{k1:.3f},{k2:.3f},{k3:.3f},{k4:.3f}")
     return y + (1 / 6) * (k1 + 2 * k2 + 2 * k3 + k4)
 
 def runge(func, x_0, y_0, h, b, e):
+    print("РУНГЕ")
     y_prev = y_0
     y_current = 0
     answer_x = [x_0]
     answer_y = [y_0]
     x_prev = x_0
     y_current_h_div_2 = y_0 * 1000 + 10000
-    print("h    y_h    y_h/2")
+
     while (abs(y_current_h_div_2 - y_current) > e):
         y_current = runge_next(func, x_prev, y_prev, h)
         y_current_h_div_1 = runge_next(func, x_prev, y_prev, h/2)
         y_current_h_div_2 = runge_next(func, x_prev + h/2, y_current_h_div_1, h/2)
-        print(h, y_current, y_current_h_div_2, )
+
         h /= 2
 
     h *= 2
