@@ -8,7 +8,7 @@ data = \
 '''
 x0 = 0.28
 #выбрать нужный после lambda
-get_method = lambda: nwt
+get_method = lambda: gau
 #x = "1.1 2.3 3.7 4.5 5.4 6.8 7.5"
 #y = "2.73 5.12 7.74 8.91 10.59 12.75 13.43"
 data = data.replace(",",'.')
@@ -61,9 +61,9 @@ def t_calc_gau(t, n, forward=True):
 
     for i in range(1, n):
         if forward:
-            result *= t - i
+            result *= t + (-1)*i*int((i+1)/2)
         else:
-            result *= t + (-1)**i*i
+            result *= t + (-1)*i*int((i+1)/2)
 
     return result
 
@@ -156,15 +156,16 @@ def gau(dots, x):
             x0 = 0
      
         t = (x - dots[int(n / 2)][0]) / h
-        result = a[x0][0]
+        print("t = ", t)
+        result = dots[n//2][1]
         for i in range(1, n):
             
             result += (t_calc_gau(t, i) * a[int((n - i) / 2) - (n % 2 == 0)][i]) / factorial(i)
     else:
         # Вторая интерполяционная формула Гаусса
-        t = (x - dots[n - 1][0]) / h
-
-        result = a[n - 1][0]
+        t = (x - dots[int(n / 2)][0]) / h
+        print("t= ",t)
+        result = dots[n//2][1]
         for i in range(1, n):
             
             result += (t_calc_gau(t, i, False) * a[int((n - i) / 2)][i]) / factorial(i)
