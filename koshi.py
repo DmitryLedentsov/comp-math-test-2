@@ -1,14 +1,14 @@
 from math import *
-a = 1
-b = 1.5
+a = 0.2
+b = 1
 
-h = 0.1
-x0=1
-y0=-1
+h = 0.2
+x0=0.2
+y0=0.25
 def dir(function, h = 0.000000001):
     return lambda x: (function(x+h) - function(x-h)) / (2*h)
 
-f = lambda x,y:  y+(1+x)*(y*y)
+f = lambda x,y:  0.221*(x*x + sin(1.2*x))+0.45*y
 
 def euler(f, a, b, y0, h):
     print("ЭЙЛЕР")
